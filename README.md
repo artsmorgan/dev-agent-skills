@@ -1,50 +1,50 @@
 # dev-agent-skills
 
-Colección de skills open source para agentes de código (Claude Code, Cursor, Codex,
-Copilot, Windsurf, Aider, etc.) que uso en mis proyectos de desarrollo.
+A collection of open source skills for coding agents (Claude Code, Cursor, Codex,
+Copilot, Windsurf, Aider, etc.) that I use in my own development projects.
 
-Cada skill vive en su propia carpeta bajo [`skills/`](skills/) con al menos un
-archivo `SKILL.md` que describe qué es, cuándo usarla y cómo. Copiá la carpeta
-que te interese a tu propio proyecto — no hace falta el repo entero.
+Each skill lives in its own folder under [`skills/`](skills/) with at least one
+`SKILL.md` file describing what it is, when to use it, and how. Copy the folder
+you need into your own project — you don't need the whole repo.
 
-## Skills disponibles
+## Available skills
 
-| Skill | Qué hace |
-|-------|----------|
-| [`eng-pipeline/`](skills/eng-pipeline/) | Pipeline de 9 etapas para llevar un ticket de intake a producción (intake → spec → spec-review → plan → develop → adversarial-review → qa → release → retro), cada etapa como skill independiente con input/output claro. |
-| [`agent-registry/`](skills/agent-registry/) | Template de `AGENTS.md` para proyectos con más de un agente especialista: define ruteo por disciplina, quién es dueño del entregable final, y separa metodología de agente vs. hechos del proyecto/cliente. |
+| Skill | What it does |
+|-------|---------------|
+| [`eng-pipeline/`](skills/eng-pipeline/) | A 9-stage pipeline that takes a ticket from intake to production (intake → spec → spec-review → plan → develop → adversarial-review → qa → release → retro), each stage a standalone skill with a clear input/output. |
+| [`agent-registry/`](skills/agent-registry/) | An `AGENTS.md` template for projects with more than one specialist agent: defines routing by discipline, who owns the final deliverable, and separates agent methodology from project/client facts. |
 
-## Uso
+## Usage
 
 ```bash
 git clone https://github.com/artsmorgan/dev-agent-skills.git
-cp -r dev-agent-skills/skills/<nombre-skill> tu-proyecto/.claude/skills/
+cp -r dev-agent-skills/skills/<skill-name> your-project/.claude/skills/
 ```
 
-### Por herramienta
+### By tool
 
-**Claude Code** — copiá las carpetas a `.claude/skills/`. Se invocan con
-`/<nombre>` (ej. `/intake`, `/spec`).
+**Claude Code** — copy the folders into `.claude/skills/`. Invoke with
+`/<name>` (e.g. `/intake`, `/spec`).
 
-**Cursor** — copiá cada `SKILL.md` a `.cursor/rules/<name>.mdc` con
-`alwaysApply: false`; referenciá con `@<name>`.
+**Cursor** — copy each `SKILL.md` into `.cursor/rules/<name>.mdc` with
+`alwaysApply: false`; reference with `@<name>`.
 
-**Codex / Copilot / Windsurf / Zed / Aider** — dejá las carpetas en el repo
-(ej. `skills/`) y agregá a tu `AGENTS.md`:
+**Codex / Copilot / Windsurf / Zed / Aider** — keep the folders anywhere in
+the repo (e.g. `skills/`) and add to your `AGENTS.md`:
 ```
 Skills live in skills/. Before starting a task, identify the stage and read
 skills/<stage>/SKILL.md in full.
 ```
 
-## Estructura
+## Structure
 
 ```
 skills/
-  <nombre-skill>/
-    SKILL.md          # o una skill multi-etapa con sub-carpetas, cada una con su SKILL.md
+  <skill-name>/
+    SKILL.md          # or a multi-stage skill with sub-folders, each with its own SKILL.md
     ...
 ```
 
-## Licencia
+## License
 
-MIT — ver [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE).
