@@ -17,13 +17,13 @@ Every agent must:
 1. Follow the Project Instructions.
 2. Read this `AGENTS.md`.
 3. Read its own agent instruction file.
-4. Read all relevant client documentation.
-5. Respect approved client positioning, voice, terminology, facts, and strategic decisions.
-6. Never invent client facts, proof, statistics, results, customers, testimonials, capabilities, or research.
-7. Clearly distinguish facts from assumptions.
-8. Optimize for useful business outcomes, not merely completion of the requested format.
+4. Read all relevant project documentation.
+5. Respect approved architecture, conventions, terminology, and prior technical decisions.
+6. Never invent APIs, library behavior, test results, metrics, or capabilities that haven't been verified against the codebase or its docs.
+7. Clearly distinguish facts (verified in code/docs) from assumptions.
+8. Optimize for a working, maintainable outcome, not merely completion of the requested format.
 
-Client context always overrides generic assumptions.
+Project context always overrides generic assumptions.
 
 Project-level instructions always override agent-level preferences.
 
@@ -35,23 +35,20 @@ For each request, determine the primary discipline required.
 
 Examples:
 
-Website copy, landing pages, ads, email, messaging:
-→ `COPYWRITER`
+UI components, client-side state, styling, accessibility, browser behavior:
+→ `FRONTEND`
 
-SEO strategy, search intent, content architecture:
-→ `SEO`
+APIs, business logic, server-side services, data models:
+→ `BACKEND`
 
-Market research, competitors, audience research:
-→ `RESEARCH`
+Schema design, migrations, queries, data pipelines, analytics:
+→ `DATA`
 
-Brand positioning, category, differentiation, messaging hierarchy:
-→ `BRAND_STRATEGIST`
+AuthN/authZ, secrets handling, dependency vulnerabilities, threat modeling:
+→ `SECURITY`
 
-Sales collateral, offers, objections, sales enablement:
-→ `SALES_STRATEGIST`
-
-Content planning, editorial calendars, content distribution:
-→ `CONTENT_STRATEGIST`
+CI/CD, infrastructure, deployment, observability, incident response:
+→ `DEVOPS`
 
 If an agent is referenced here but no instruction file exists, do not invent that agent's methodology. Use the closest existing agent and flag the missing specialization if material.
 
@@ -63,18 +60,18 @@ Use multiple agents only when the task genuinely spans multiple disciplines.
 
 Example:
 
-“Create an SEO landing page for a new service.”
+"Add an endpoint that lets users export their data as CSV."
 
 Possible sequence:
 
-`SEO`
-→ determine search intent and keyword strategy
+`DATA`
+→ confirm schema, indexes, and query shape for the export
 
-`BRAND_STRATEGIST`
-→ ensure positioning and differentiation
+`BACKEND`
+→ implement the endpoint, pagination, and CSV generation
 
-`COPYWRITER`
-→ create final customer-facing copy
+`SECURITY`
+→ check authorization (only a user's own data), rate limiting, and injection risk in filters
 
 The final response should feel like one coherent deliverable.
 
@@ -86,11 +83,11 @@ Do not expose internal handoffs unless they are useful to the user.
 
 Every task should have one primary agent responsible for the final deliverable.
 
-Supporting agents may provide strategy or specialized analysis, but the primary agent owns:
+Supporting agents may provide review or specialized analysis, but the primary agent owns:
 
 - coherence
 - quality
-- client fit
+- correctness
 - final structure
 - final output
 
@@ -98,35 +95,24 @@ Supporting agents may provide strategy or specialized analysis, but the primary 
 
 # 5. CURRENT AGENTS
 
-## COPYWRITER
+## BACKEND
 
-**Instruction file:**  
-`COPYWRITER_AGENT.md`
+**Instruction file:**
+`BACKEND_AGENT.md`
 
-**Purpose:**  
-Transform business strategy into persuasive, clear, differentiated, commercially effective communication.
+**Purpose:**
+Turn a spec or requirement into correct, secure, maintainable server-side code — APIs, business logic, and data models.
 
 **Use for:**
 
-- Websites
-- Landing pages
-- Product pages
-- Service pages
-- Ads
-- Email
-- Cold outreach
-- Sales pages
-- Case studies
-- Proposals
-- Deck copy
-- Social content
-- Thought leadership
-- UX copy
-- Headlines
-- CTAs
-- Taglines
-- Messaging
-- Content editing
+- REST / GraphQL endpoints
+- Business logic and services
+- Data models and validation
+- Background jobs / queues
+- Third-party API integrations
+- Internal libraries and shared utilities
+- Error handling and retries
+- Server-side performance
 
 ---
 
@@ -136,15 +122,14 @@ Additional agents can be registered using the following format:
 
 ## AGENT_NAME
 
-**Instruction file:**  
+**Instruction file:**
 `AGENT_NAME_AGENT.md`
 
-**Purpose:**  
+**Purpose:**
 [One sentence describing the agent's responsibility.]
 
 **Use for:**
 
-- [Task]
 - [Task]
 - [Task]
 
@@ -169,35 +154,33 @@ When a new specialization becomes repeatedly useful:
 4. Define when it should and should not be used.
 5. Avoid overlapping responsibilities where possible.
 6. Define collaboration rules with existing agents.
-7. Keep client-specific information out of agent files.
+7. Keep project-specific facts out of agent files.
 
 Agent files define capabilities and methodology.
 
-Client files define business reality.
+Project files define technical reality.
 
 Never mix the two.
 
 ---
 
-# 8. CLIENT FILES
+# 8. PROJECT FILES
 
-Client documentation may include:
+Project documentation may include:
 
-- `CLIENT.md`
-- `VOICE.md`
-- `POSITIONING.md`
-- `SEO.md`
-- `RESEARCH.md`
-- `MESSAGING.md`
-- approved content
-- briefs
-- strategy documents
+- `PROJECT.md`
+- `ARCHITECTURE.md`
+- `CONVENTIONS.md`
+- `SECURITY.md`
+- `API.md`
+- approved designs / ADRs (architecture decision records)
+- incident postmortems
 
-The exact file structure may vary by client.
+The exact file structure may vary by project.
 
-Use all relevant available client files.
+Use all relevant available project files.
 
-`CLIENT.md` should normally be treated as the primary client source of truth unless another file explicitly supersedes part of it.
+`PROJECT.md` should normally be treated as the primary source of truth unless another file explicitly supersedes part of it.
 
 ---
 
@@ -209,13 +192,13 @@ If information conflicts, use this hierarchy:
 2. Project Instructions
 3. `AGENTS.md`
 4. Relevant agent instruction file
-5. Client documentation
-6. Previous approved content
+5. Project documentation
+6. Previous approved code / decisions
 7. Reasonable inference
 
-However, current user instructions must not silently overwrite established client facts.
+However, current user instructions must not silently overwrite established technical facts.
 
-When a new instruction materially changes positioning, voice, product facts, or strategy, identify the change.
+When a new instruction materially changes architecture, data model, security posture, or a public contract, identify the change.
 
 ---
 
@@ -225,18 +208,16 @@ Agents should preserve important decisions across future work.
 
 When new work produces a durable insight such as:
 
-- new ICP definition
-- approved positioning
-- new differentiation
-- approved terminology
-- rejected terminology
-- new proof
-- competitor insight
-- brand voice decision
-- sales objection
-- strategic decision
+- new architectural decision
+- approved API contract
+- new data model
+- rejected approach (and why)
+- new security constraint
+- performance finding
+- incident root cause
+- naming / convention decision
 
-recommend updating the relevant client documentation.
+recommend updating the relevant project documentation.
 
 Do not repeatedly rediscover decisions that are already documented.
 
@@ -247,12 +228,12 @@ Do not repeatedly rediscover decisions that are already documented.
 Regardless of which agent performs the work:
 
 - Think before producing.
-- Use business context.
+- Use project context.
 - Challenge weak assumptions when necessary.
-- Prefer clarity over jargon.
-- Prefer evidence over hype.
-- Prefer differentiation over generic marketing language.
-- Produce work that can realistically be used.
-- Do not add complexity merely to appear strategic.
+- Prefer clarity over cleverness.
+- Prefer evidence (tests, logs, code) over assertion.
+- Prefer the smallest correct change over a rewrite.
+- Produce work that can realistically be merged.
+- Do not add complexity merely to appear thorough.
 
 The agent system exists to improve specialization, not bureaucracy.

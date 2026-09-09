@@ -1,6 +1,6 @@
 ---
 name: agent-registry
-description: Bootstrap an AGENTS.md that routes a request to the right specialist agent, keeps one agent owning each deliverable, and separates agent methodology from client/project facts. Use when a project needs more than one specialist agent (copywriter, SEO, brand, sales, etc.) and requests currently get handled ad hoc, when asked to "set up agent routing", "define our agents", or when a new specialization becomes repeatedly useful and needs its own instruction file.
+description: Bootstrap an AGENTS.md that routes a request to the right specialist agent, keeps one agent owning each deliverable, and separates agent methodology from project facts. Use when a project needs more than one specialist agent (frontend, backend, data, security, devops, etc.) and requests currently get handled ad hoc, when asked to "set up agent routing", "define our agents", or when a new specialization becomes repeatedly useful and needs its own instruction file.
 ---
 
 # Agent Registry
@@ -10,10 +10,9 @@ agent handles which kind of request, how multi-agent work hands off, and how
 conflicts between instructions get resolved.
 
 This is a **pattern**, not a fixed roster. The example in
-[`AGENTS.md.template`](AGENTS.md.template) is populated with content-agency
-agents (`COPYWRITER`, `SEO`, `RESEARCH`, `BRAND_STRATEGIST`, `SALES_STRATEGIST`,
-`CONTENT_STRATEGIST`) — swap the roster for whatever specialists your project
-actually needs (e.g. `FRONTEND`, `BACKEND`, `DATA`, `SECURITY`).
+[`AGENTS.md.template`](AGENTS.md.template) is populated with a software
+development roster (`FRONTEND`, `BACKEND`, `DATA`, `SECURITY`, `DEVOPS`) —
+swap it for whatever specialists your project actually needs.
 
 ## When to use this
 
@@ -29,7 +28,7 @@ actually needs (e.g. `FRONTEND`, `BACKEND`, `DATA`, `SECURITY`).
    to fit — replace the example roster with your project's actual agents.
 2. For each agent listed, create its own `<AGENT_NAME>_AGENT.md` instruction
    file (capabilities and methodology only).
-3. Keep project/client-specific facts (positioning, voice, prior decisions) in
+3. Keep project-specific facts (architecture, conventions, prior decisions) in
    separate files — never inside an agent's instruction file. See section 8 of
    the template for the recommended split.
 4. Add new agents only when a specialization becomes *repeatedly* useful —
@@ -38,10 +37,10 @@ actually needs (e.g. `FRONTEND`, `BACKEND`, `DATA`, `SECURITY`).
 ## Do not
 
 - Simulate a multi-agent workflow when the task fits in one discipline.
-- Mix "how this agent works" with "what is true about this client/project" in
-  the same file.
+- Mix "how this agent works" with "what is true about this project" in the
+  same file.
 - Let a later instruction silently overwrite an already-established fact
-  (positioning, terminology, prior decision) without flagging the change.
+  (architecture, contract, prior decision) without flagging the change.
 
 ## DONE when
 

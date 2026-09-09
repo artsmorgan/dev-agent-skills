@@ -54,17 +54,16 @@ Open questions:
 ### `agent-registry/` — example roster
 
 The bundled [`AGENTS.md.template`](skills/agent-registry/AGENTS.md.template) ships
-with a content-agency roster as a worked example. Swap it for whatever
+with a software development roster as a worked example. Swap it for whatever
 specialists your project actually needs.
 
 | Agent | Routes here for | Status in template |
 |-------|------------------|---------------------|
-| `COPYWRITER` | Website copy, landing pages, product/service pages, ads, email, sales pages, case studies, UX copy, taglines. | Fully defined — has its own `COPYWRITER_AGENT.md` |
-| `SEO` | SEO strategy, search intent, content architecture. | Routing target only — instruction file not yet written |
-| `RESEARCH` | Market research, competitors, audience research. | Routing target only |
-| `BRAND_STRATEGIST` | Brand positioning, category, differentiation, messaging hierarchy. | Routing target only |
-| `SALES_STRATEGIST` | Sales collateral, offers, objections, sales enablement. | Routing target only |
-| `CONTENT_STRATEGIST` | Content planning, editorial calendars, distribution. | Routing target only |
+| `BACKEND` | REST/GraphQL endpoints, business logic, data models, background jobs, third-party integrations. | Fully defined — has its own `BACKEND_AGENT.md` |
+| `FRONTEND` | UI components, client-side state, styling, accessibility, browser behavior. | Routing target only — instruction file not yet written |
+| `DATA` | Schema design, migrations, queries, data pipelines, analytics. | Routing target only |
+| `SECURITY` | AuthN/authZ, secrets handling, dependency vulnerabilities, threat modeling. | Routing target only |
+| `DEVOPS` | CI/CD, infrastructure, deployment, observability, incident response. | Routing target only |
 
 "Routing target only" means the template already routes requests to that name,
 but you need to add its `<AGENT_NAME>_AGENT.md` (see section 6, "Future
@@ -75,16 +74,16 @@ existing agent handles it and the gap gets flagged.
 <summary>Sample: routing a request</summary>
 
 ```
-Request: "Write the homepage hero copy for the new pricing tier"
-→ single discipline: COPYWRITER
-→ COPYWRITER reads AGENTS.md + its own instruction file + CLIENT.md/VOICE.md
-→ produces final customer-facing copy
+Request: "Add validation and a service method for updating a user's email"
+→ single discipline: BACKEND
+→ BACKEND reads AGENTS.md + its own instruction file + PROJECT.md/CONVENTIONS.md
+→ produces the endpoint, validation and tests
 
-Request: "Create an SEO landing page for a new service"
+Request: "Add an endpoint that lets users export their data as CSV"
 → spans multiple disciplines:
-  1. SEO           → search intent + keyword strategy
-  2. BRAND_STRATEGIST → positioning + differentiation check
-  3. COPYWRITER    → final page copy (primary agent, owns the deliverable)
+  1. DATA     → confirm schema, indexes, query shape for the export
+  2. BACKEND  → implement the endpoint, pagination, CSV generation (primary agent)
+  3. SECURITY → check authorization (own data only), rate limiting, injection risk
 ```
 </details>
 
